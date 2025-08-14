@@ -1,8 +1,9 @@
 package com.example.apicnpj.client.cnpj;
 
 import com.example.apicnpj.client.RobustClient;
-import com.example.apicnpj.client.cnpj.dto.Enterprise;
+import com.example.apicnpj.client.cnpj.dto.WsData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Component;
 public class RobustCnpjClient extends RobustClient {
 
     private static final String CNPJ_CLIENT_NAME = "cnpj";
+
+    @Value("${TOKEN_RECEITAWS}")
+    private static String TOKEN_RECEITAWS;
 
     @Autowired
     private CnpjClient cnpjClient;
@@ -19,7 +23,7 @@ public class RobustCnpjClient extends RobustClient {
     }
 
     @Cacheable("enterprise")
-    public Enterprise getEnterpriseByCnpj(String cnpj) {
-        return super.robustCall(() -> cnpjClient.getDataByCnpj(cnpj));
+    public WsData getEnterpriseByCnpj(String cnpj) {
+        return super.robustCall(() -> cnpjClient.getDataByCnpj(cnpj, TOKEN_RECEITAWS));
     }
 }

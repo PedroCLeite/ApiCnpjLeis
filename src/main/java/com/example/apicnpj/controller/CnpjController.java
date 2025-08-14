@@ -1,6 +1,6 @@
 package com.example.apicnpj.controller;
 
-import com.example.apicnpj.client.cnpj.dto.Enterprise;
+import com.example.apicnpj.client.cnpj.dto.WsData;
 import com.example.apicnpj.service.CnpjService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class CnpjController {
     private CnpjService service;
 
     @GetMapping()
-    public Enterprise getEnterpriseByCnpj(@RequestParam String cnpj) throws BadRequestException {
+    public WsData getEnterpriseByCnpj(@RequestParam String cnpj) throws BadRequestException {
         return service.getEnterpriseByCnpj(cnpj);
     }
 }
