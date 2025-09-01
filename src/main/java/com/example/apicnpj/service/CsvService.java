@@ -30,18 +30,16 @@ public class CsvService {
         String[] line;
         reader.readNext();
         while ((line = reader.readNext()) != null){
-            if (!line[5].equals("EXTERNO")) {
-                leis.add(new LeiDto(
-                        Integer.parseInt(line[0]),
-                        line[1],
-                        line[2],
-                        line[3],
-                        line[4],
-                        line[5],
-                        line[6],
-                        line[7]
-                ));
-            }
+            leis.add(new LeiDto(
+                    Integer.parseInt(line[0]),
+                    line[1],
+                    line[2],
+                    line[3],
+                    line[4],
+                    line[5],
+                    line[6],
+                    line[7]
+            ));
         }
 
         return leis;
