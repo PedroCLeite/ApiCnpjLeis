@@ -44,7 +44,6 @@ A API foi desenvolvida em Java utilizando Spring Boot e está configurada para a
 **Headers Necessários**:
 
 ```http
-Content-Type: application/json
 Accept: application/json
 ```
 
@@ -283,13 +282,13 @@ def consultar_leis() -> list:
 ```javascript
 async function consultarCnpj(cnpj) {
   // Remove formatação do CNPJ
-  const cnpjLimpo = cnpj.replace(/\D/g, '');
+  const cleanCnpj = cnpj.replace(/\D/g, '');
   
-  if (cnpjLimpo.length !== 14) {
+  if (cleanCnpj.length !== 14) {
     throw new Error('CNPJ deve conter 14 dígitos');
   }
   
-  const response = await fetch(`https://api.exemplo.com/?cnpj=${cnpjLimpo}`, {
+  const response = await fetch(`https://api.exemplo.com/?cnpj=${cleanCnpj}`, {
     headers: { 'Accept': 'application/json' }
   });
   
@@ -324,6 +323,8 @@ async function consultarLeis() {
 - Recomenda-se aguardar alguns segundos entre requisições consecutivas
 - Em caso de erro 503, aguarde 30 segundos antes de tentar novamente
 
+**Nota**: O limite de 10 requisições por segundo é uma recomendação para evitar sobrecarga. Não há um limite rígido imposto pela API, mas requisições excessivas podem resultar em bloqueio temporário pelo serviço externo.
+
 ### 8.2 Consulta de Leis
 
 - A consulta de leis utiliza cache interno
@@ -342,9 +343,9 @@ async function consultarLeis() {
 
 ### 9.1 Consulta de CNPJ
 
-A consulta de CNPJ utiliza autenticação via token configurado no servidor. O token é gerenciado internamente pela aplicação através da variável de ambiente `TOKEN_RECEITAWS`.
+A consulta de CNPJ utiliza autenticação via token configurado no servidor. O token é gerenciado internamente pela aplicação.
 
-**Para usuários da API**: Não é necessário enviar credenciais nas requisições. A autenticação é transparente.
+**Para usuários da API**: Não é necessário enviar credenciais nas requisições. A autenticação é transparente e gerenciada pelo servidor.
 
 ### 9.2 Consulta de Leis
 
